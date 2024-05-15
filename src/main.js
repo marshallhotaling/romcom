@@ -1,5 +1,13 @@
 // Create variables targetting the relevant DOM elements here 👇
-
+var randomPoster = document.querySelector(".random-cover-button")
+var  = document.querySelector(".")
+var  = document.querySelector(".")
+var  = document.querySelector(".")
+var  = document.querySelector(".")
+var  = document.querySelector(".")
+var  = document.querySelector(".")
+var  = document.querySelector(".")
+var  = document.querySelector(".")
 
 // We've provided a few variables below
 var savedCovers = [
@@ -8,7 +16,12 @@ var savedCovers = [
 var currentCover;
 
 // Add your event listeners here 👇
+randomPoster.addEventListener('click', () => {
+  [Math.floor(Math.random() * covers.length)]
+  [Math.floor(Math.random() * titles.length)]
+  [Math.floor(Math.random() * descriptors.length)]
 
+});
 
 // Create your event handlers and other functions here 👇
 
