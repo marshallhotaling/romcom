@@ -2,12 +2,12 @@
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 0 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-var randomCover = document.querySelector(".random-cover-button")
+var randomCoverButton = document.querySelector(".random-cover-button")
 
-var picture = document.querySelector(".cover-image")
-var mainTitle = document.querySelector(".cover-title")
-var D1 = document.querySelector(".tagline-1")
-var D2 = document.querySelector(".tagline-2")
+var picture1 = document.querySelector(".cover-image");
+var mainTitle = document.querySelector(".cover-title");
+var D1 = document.querySelector(".tagline-1");
+var D2 = document.querySelector(".tagline-2");
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -29,43 +29,32 @@ var userD1 = document.querySelector(".user-desc1")
 var userD2 = document.querySelector(".user-desc2")
 
 var makeMyBookButton = document.querySelector(".create-new-book-button")
+
 //~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 3 ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 var saveThis = document.querySelector(".save-cover-button")
 
 var savedCoversSection = document.querySelector(".saved-covers-section")
-=======
 
 // We've provided a few variables below
-var savedCovers = [
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
-];
-var currentCover;
+
+var savedCovers = [];
+var currentCover = createCover(picture1, mainTitle, D1, D2);
 
 // Add your event listeners here 👇
-randomCover.addEventListener('click', () => {
-  console.log("here")
-  picture.src = covers[Math.floor(Math.random() * covers.length)]
-  mainTitle.innerText = titles[Math.floor(Math.random() * titles.length)]
-  D1.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
-  D2.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
-  
-
-});
 
 makeACoverButton.addEventListener('click', showFormPage, console.log('1 <><'))
 homeButton.addEventListener('click', showMainPage, console.log('3 <<<><'))
 savedCoversButton.addEventListener('click', showSavedCovers, console.log('6 <<<<<<><'))
 
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 0 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-randomCover.addEventListener('click', () => {
-  console.log("here")
-  picture.src = covers[Math.floor(Math.random() * covers.length)]
-  mainTitle.innerText = titles[Math.floor(Math.random() * titles.length)]
-  D1.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
-  D2.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
+randomCoverButton.addEventListener('click', function () {
+    console.log("here")
+    picture1.src = covers[Math.floor(Math.random() * covers.length)]
+    mainTitle.innerText = titles[Math.floor(Math.random() * titles.length)]
+    D1.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
+    D2.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
 });
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -78,16 +67,8 @@ savedCoversButton.addEventListener('click', showSavedCovers)
 
 makeMyBookButton.addEventListener('click', createUserCover)
 
-
-
-
 //~~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 3 ~~~~~~~~~~~~~~~~~~~~~~~~~
-saveThis.addEventListener('click', saveACover)
-// var savedCovers = []
-savedCoversButton.addEventListener('click', displaySavedCovers)
-
-
-
+saveThis.addEventListener('click', saveACover);
 
 // Create your event handlers and other functions here 👇
 
@@ -97,16 +78,16 @@ savedCoversButton.addEventListener('click', displaySavedCovers)
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 0 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
+    return Math.floor(Math.random() * array.length);
 }
 
 function createCover(imgSrc, title, descriptor1, descriptor2) {
   var cover = {
-    id: Date.now(),
-    coverImg: imgSrc,
-    title: title,
-    tagline1: descriptor1,
-    tagline2: descriptor2
+      id: Date.now(),
+      coverImg: imgSrc,
+      title: title,
+      tagline1: descriptor1,
+      tagline2: descriptor2,
   }
   return cover
 }
@@ -114,185 +95,88 @@ function createCover(imgSrc, title, descriptor1, descriptor2) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function showFormPage() {
-  formPage.classList.remove('hidden');
-  mainPage.classList.add('hidden');
-  savedCoversPage.classList.add('hidden');
-  homeButton.classList.remove('hidden');
-  randomCover.classList.add('hidden');
-  saveButton.classList.add('hidden');
-  // console.log('2 <<><')
+    formPage.classList.remove('hidden');
+    mainPage.classList.add('hidden');
+    savedCoversPage.classList.add('hidden');
+    homeButton.classList.remove('hidden');
+    randomCoverButton.classList.add('hidden');
+    saveButton.classList.add('hidden');
+
 };
 
 function showMainPage() {
-  mainPage.classList.remove('hidden');
-  formPage.classList.add('hidden');
-  homeButton.classList.add('hidden');
-  randomCover.classList.remove('hidden');
-  saveButton.classList.remove('hidden');
-  // console.log('4 <<<<><')
-};
+    mainPage.classList.remove('hidden');
+    formPage.classList.add('hidden');
+    savedCoversPage.classList.add('hidden');
+    homeButton.classList.add('hidden');
+    randomCoverButton.classList.remove('hidden');
+    saveButton.classList.remove('hidden');
+}
 
 function showSavedCovers () {
   savedCoversPage.classList.remove('hidden');
   mainPage.classList.add('hidden');
   formPage.classList.add('hidden');
   homeButton.classList.remove('hidden');
-  randomCover.classList.add('hidden');
+  randomCoverButton.classList.add('hidden');
   saveButton.classList.add('hidden');
-  savedCoversSection.innerText = savedCovers;
-  // console.log('5 <<<<<><')
+  savedCoversSection.innerHTML = "";
+
+  for(let i = 0; i < savedCovers.length; ++i) {
+      savedCoversSection.innerHTML += displayItem(savedCovers[i].coverImg, savedCovers[i].title, savedCovers[i].tagline1, savedCovers[i].tagline2, i)
+  }
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 2 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function createUserCover (event) {
-  event.preventDefault();
-  picture.src = userCoverPic.value;
-  mainTitle.innerText = userTitle.value;
-  D1.innerText = userD1.value;
-  D2.innerText = userD2.value;
-  showMainPage();
-  covers.push(userCoverPic.value);
-  titles.push(userTitle.value);
-  descriptors.push(userD1.value);
-  descriptors.push(userD2.value);
-  // console.log('1 <><', covers);
-  // console.log('2 <<><', titles);
-  // console.log('3 <<<><', descriptors);
-  // console.log('4 <<<<><', userCoverPic.value);
+    event.preventDefault();
+    picture1.src = userCoverPic.value;
+    mainTitle.innerText = userTitle.value;
+    D1.innerText = userD1.value;
+    D2.innerText = userD2.value;
+    showMainPage();
+    covers.push(userCoverPic.value);
+    titles.push(userTitle.value);
+    descriptors.push(userD1.value);
+    descriptors.push(userD2.value);
 }
-
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 3 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function saveACover () {
-  var coverToKeep = createCover(userCoverPic.value, userTitle.value, userD1.value, userD2.value);
+  var hasItem = false
+  var coverToKeep = createCover(picture1.src, mainTitle.innerHTML, D1.innerHTML, D2.innerHTML);
+
   for (i = 0; i < savedCovers.length; i++) {
-    if (coverToKeep === savedCovers[i] || coverToKeep.title === "") {
-      // console.log("1 <><", savedCovers);
-      return savedCovers;
-    } else if (coverToKeep !== savedCovers[i] || coverToKeep.title !== "") {
-      // console.log("2 <<><", savedCovers);
+      if (savedCovers[i].coverImg === coverToKeep.coverImg && savedCovers[i].mainTitle === coverToKeep.mainTitle && savedCovers[i].D1 === coverToKeep.D1 && savedCovers[i].D2 === coverToKeep.D2) {
+          hasItem = true
+      }
+  }
+
+  if (hasItem === false) {
       savedCovers.push(coverToKeep)
-    }
   }
 }
 
-function displaySavedCovers () {
+function displayItem(coverImg, title, tag1, tag2, i) {
+  return `<article class="mini-cover" id="mini-cover-container" ondblclick="deleteItem(${i})">
+    <img class="mini-cover" src="${coverImg}" id="mini-cover-img">
+    <h2 class="cover-title" id="mini-cover-title">${title}</h2>
+    <h3 class="tagline" id="mini-cover-tagline">A tale of <span class="tagline-1">${tag1}</span> and
+     <span class="tagline-2">${tag2}</span></h3>
+    <img class="price-tag" id="mini-price-tag" src="./assets/price.png">
+    <img class="overlay" id="mini-overlay" src="./assets/overlay.png">
+  </article>`
+}
+
+//~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 4 ~~~~~~~~~~~~~~~~~~~~~~~~~
+
+function deleteItem(index) {
+  console.log('index', index)
+  savedCovers.splice(index, 1)
   savedCoversSection.innerHTML = "";
-  for (var i = 0; i < savedCovers.length; i++) {
-    var cover = savedCovers[i];
-    var miniCoverContainer = document.createElement("div");
-      miniCoverContainer.className = "mini-cover";
-
-    var miniCoverImg = document.createElement("img");
-      miniCoverImg.className = ".mini-cover img";
-      miniCoverImg.setAttribute("id", "cover-image");
-      // miniCoverImg.getElementById("cover-image").style = miniCoverContainer.style;
-      miniCoverImg.src = picture.src;
-      miniCoverContainer.appendChild(miniCoverImg);
-    
-    var miniCoverTitle = document.createElement("h2");
-      miniCoverTitle.className = ".cover-title";
-      miniCoverTitle.innerText = `${mainTitle.innerText}`;
-      miniCoverContainer.appendChild(miniCoverTitle);
-
-    var miniCoverTags = document.createElement("h3");
-      miniCoverTags.className = ".tagline";
-    
-    
-    savedCoversSection.appendChild(miniCoverContainer);
+  for(let i = 0; i < savedCovers.length; ++i) {
+      savedCoversSection.innerHTML += displayItem(savedCovers[i].coverImg, savedCovers[i].title, savedCovers[i].tagline1, savedCovers[i].tagline2, i)
   }
 }
-
-/** Ok so, the stuff above this so line 190 all the way up to line 1 is what
- * was originally here. The stuff below this is broken into 2 parts; the first
- * part is the stuff you sent me through slack and includes the modifications we
- * made. The second part is what you originally sent me through slack without any
- * changes.
- *      And now we will march onward to victory!!!!!
- */
-
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~ PART 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// saveThis.addEventListener('click', () => {
-//   savedCoversSection.innerHTML = '';
-//   // mainCover.classList.add("hidden");
-//   // savedCoversView.classList.remove("hidden");
-//   for (var i = 0; i < savedCovers.length; ++i) {
-
-//     savedCoversSection.innerHTML = savedCoversSection.innerHTML +
-//       `<section class="main-cover">
-//         <img class="cover-image" src=${savedCovers[i].covers}>
-//         <h2 class="cover-title">${savedCovers[i].title}</h2>
-//         <h3 class="tagline">A tale of <span class="tagline-1">${savedCovers[i].D1}</span> and <span class="tagline-2">${savedCovers[i].D2}</span></h3>
-//        </section>`
-//   }
-//   console.log('button2')
-// });
-
-// var dattaHolder = {
-//   heading:String(posterTitle.value).toUpperCase(),
-//   quote: posterQuote.value,
-//   picture: posterImageUrl.value
-// }
-
-// function cheakForDubbles(datta) {
-//   for (var i = 0; i < savedPosters.length; ++i) {
-//     if (savedPosters[i].heading === datta.heading &&
-//       savedPosters[i].quote === datta.quote &&
-//       savedPosters[i].picture === datta.picture) {
-//       return true
-//     }
-//   }
-//   return false;
-// }
-
-//~~~~~~~~~~~~~~~~~~~~~~~~~ PART 2 ~~~~~~~~~~~~~~~~~~~~~~~~~
-
-// showSave.addEventListener('click', () => {
-//   savedPostersGrid.innerHTML = ''
-//   mainPoster.classList.add("hidden")
-//   savedPostersView.classList.remove("hidden")
-//   for (var i = 0; i < savedPosters.length; ++i) {
-
-//     savedPostersGrid.innerHTML = savedPostersGrid.innerHTML +
-//       `<article class="poster" ondblclick="deleteItem(${i})">
-//         <img class="poster-img" src=${savedPosters[i].picture} alt="nothin' to see here">
-//         <h1 class="poster-title">${savedPosters[i].heading}</h1>
-//         <h3 class="poster-quote">${savedPosters[i].quote}</h3>
-//        </article>`
-//   }
-
-//   console.log('button2')
-// });
-
-// var dattaHolder = {
-//     heading:String(posterTitle.value).toUpperCase(),
-//     quote: posterQuote.value,
-//     picture: posterImageUrl.value
-//   }
-
-// if (cheakForDubbles(dattaHolder) === false) {
-//   images.push(posterImageUrl.value)
-//   quotes.push(posterQuote.value)
-//   titles.push(String(posterTitle.value).toUpperCase())
-//   savedPosters.push({
-//     heading: String(posterTitle.value).toUpperCase(),
-//     quote: posterQuote.value,
-//     picture: posterImageUrl.value
-//   })
-// }
-
-// function cheakForDubbles(datta) {
-
-//   for (var i = 0; i < savedPosters.length; ++i) {
-//     if (savedPosters[i].heading === datta.heading &&
-//       savedPosters[i].quote === datta.quote &&
-//       savedPosters[i].picture === datta.picture) {
-//       return true
-//     }
-//   }
-//   return false
-// }
