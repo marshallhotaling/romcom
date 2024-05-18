@@ -74,11 +74,11 @@ savedCoversButton.addEventListener('click', showSavedCovers, console.log('6 <<<<
 randomCoverButton.addEventListener("click", randomCoverHandler, console.log("62 ><>"))
 
 randomCoverButton.addEventListener('click', function () {
-  console.log("here")
-  picture1.src = covers[Math.floor(Math.random() * covers.length)]
-  mainTitle.innerText = titles[Math.floor(Math.random() * titles.length)]
-  D1.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
-  D2.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
+    console.log("here")
+    picture1.src = covers[Math.floor(Math.random() * covers.length)]
+    mainTitle.innerText = titles[Math.floor(Math.random() * titles.length)]
+    D1.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
+    D2.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
 });
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -97,9 +97,6 @@ makeMyBookButton.addEventListener('click', createUserCover)
 //~~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 3 ~~~~~~~~~~~~~~~~~~~~~~~~~
 saveThis.addEventListener('click', saveACover)
 savedCoversButton.addEventListener('click', displaySavedCovers);
-savedCoversButton.addEventListener('click', addMiniCoverElement);
-
-
 
 // Create your event handlers and other functions here 👇
 
@@ -109,98 +106,117 @@ savedCoversButton.addEventListener('click', addMiniCoverElement);
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 0 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function randomCoverHandler () {
-  makeRandomCover();
-  displayRandomCover();
+    makeRandomCover();
+    displayRandomCover();
 };
 
 function userCover () {};
 
 function getRandomIndex(array) {
-  return Math.floor(Math.random() * array.length);
+    return Math.floor(Math.random() * array.length);
 }
 
 function createCover(imgSrc, title, descriptor1, descriptor2) {
-  var cover = {
-    id: Date.now(),
-    coverImg: imgSrc,
-    title: title,
-    tagline1: descriptor1,
-    tagline2: descriptor2,
-    from: "createCover => currentCover => saveCover => savedCovers"
-  }
-  return cover
+    var cover = {
+        id: Date.now(),
+        coverImg: imgSrc,
+        title: title,
+        tagline1: descriptor1,
+        tagline2: descriptor2,
+        from: "createCover => currentCover => saveCover => savedCovers"
+    }
+    return cover
 }
 
 function makeRandomCover () {
-  randPic = covers.at(getRandomIndex(covers));
-  randTitle = titles.at(getRandomIndex(titles));
-  randD1 = descriptors.at(getRandomIndex(descriptors));
-  randD2 = descriptors.at(getRandomIndex(descriptors));
-  var randomCover = {
-    id: Date.now(),
-    coverImg: randPic,
-    title: randTitle,
-    tagline1: randD1,
-    tagline2: randD2,
-    from: "random func"
-  }
-  // console.log("129 ><>")
-  return randomCover
+    randPic = covers.at(getRandomIndex(covers));
+    randTitle = titles.at(getRandomIndex(titles));
+    randD1 = descriptors.at(getRandomIndex(descriptors));
+    randD2 = descriptors.at(getRandomIndex(descriptors));
+    var randomCover = {
+        id: Date.now(),
+        coverImg: randPic,
+        title: randTitle,
+        tagline1: randD1,
+        tagline2: randD2,
+        from: "random func"
+    }
+    // console.log("129 ><>")
+    return randomCover
 };
 
 function displayRandomCover () {
-  var randomCover = makeRandomCover();
-  picture1.src = randomCover.coverImg;
-  mainTitle.innerText = randomCover.title;
-  D1.innerText = randomCover.tagline1;
-  D2.innerText = randomCover.tagline2;
+    var randomCover = makeRandomCover();
+    picture1.src = randomCover.coverImg;
+    mainTitle.innerText = randomCover.title;
+    D1.innerText = randomCover.tagline1;
+    D2.innerText = randomCover.tagline2;
 };
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function showFormPage() {
-  formPage.classList.remove('hidden');
-  mainPage.classList.add('hidden');
-  savedCoversPage.classList.add('hidden');
-  homeButton.classList.remove('hidden');
-  randomCoverButton.classList.add('hidden');
-  saveButton.classList.add('hidden');
+    formPage.classList.remove('hidden');
+    mainPage.classList.add('hidden');
+    savedCoversPage.classList.add('hidden');
+    homeButton.classList.remove('hidden');
+    randomCoverButton.classList.add('hidden');
+    saveButton.classList.add('hidden');
 
 };
 
 function showMainPage() {
-  mainPage.classList.remove('hidden');
-  formPage.classList.add('hidden');
-  savedCoversPage.classList.add('hidden');
-  homeButton.classList.add('hidden');
-  randomCoverButton.classList.remove('hidden');
-  saveButton.classList.remove('hidden');
+    mainPage.classList.remove('hidden');
+    formPage.classList.add('hidden');
+    savedCoversPage.classList.add('hidden');
+    homeButton.classList.add('hidden');
+    randomCoverButton.classList.remove('hidden');
+    saveButton.classList.remove('hidden');
 };
 
 function showSavedCovers () {
-  savedCoversPage.classList.remove('hidden');
-  mainPage.classList.add('hidden');
-  formPage.classList.add('hidden');
-  homeButton.classList.remove('hidden');
-  randomCoverButton.classList.add('hidden');
-  saveButton.classList.add('hidden');
-  savedCoversSection.innerText = savedCovers;
-  // console.log('5 <<<<<><')
+    savedCoversPage.classList.remove('hidden');
+    mainPage.classList.add('hidden');
+    formPage.classList.add('hidden');
+    homeButton.classList.remove('hidden');
+    randomCoverButton.classList.add('hidden');
+    saveButton.classList.add('hidden');
+    savedCoversSection.innerHTML = "";
+
+    for(let i = 0; i < savedCovers.length; ++i) {
+
+        savedCoversSection.innerHTML +=
+            `<article class="mini-cover" id="mini-cover-container">
+      <img class="mini-cover" src="${savedCovers[i].coverImg}" id="mini-cover-img">
+      <h2 class="cover-title" id="mini-cover-title">${savedCovers[i].title}</h2>
+      <h3 class="tagline" id="mini-cover-tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and
+       <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+      <img class="price-tag" id="mini-price-tag" src="./assets/price.png">
+      <img class="overlay" id="mini-overlay" src="./assets/overlay.png">
+    </article>`;
+
+    }
+
+
+
+
+    // savedCoversSection.innerText = savedCovers;
+    // console.log('5 <<<<<><')
 }
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 2 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function createUserCover (event) {
-  event.preventDefault();
-  picture1.src = userCoverPic.value;
-  mainTitle.innerText = userTitle.value;
-  D1.innerText = userD1.value;
-  D2.innerText = userD2.value;
-  showMainPage();
-  covers.push(userCoverPic.value);
-  titles.push(userTitle.value);
-  descriptors.push(userD1.value);
-  descriptors.push(userD2.value);
+    event.preventDefault();
+    picture1.src = userCoverPic.value;
+    mainTitle.innerText = userTitle.value;
+    D1.innerText = userD1.value;
+    D2.innerText = userD2.value;
+    showMainPage();
+    covers.push(userCoverPic.value);
+    titles.push(userTitle.value);
+    descriptors.push(userD1.value);
+    descriptors.push(userD2.value);
 }
 
 
@@ -235,23 +251,8 @@ function saveACover () {
 //   }
 // }
 
-function addMiniCoverElement () {
-  savedCoversSection.innerHTML = "";
-  savedCoversSection.innerHTML +=
-    `<article class="mini-cover" id="mini-cover-container">
-      <img class="mini-cover" src="${picture1.src}" id="mini-cover-img">
-      <h2 class="cover-title" id="mini-cover-title">${mainTitle.innerText}</h2>
-      <h3 class="tagline" id="mini-cover-tagline">A tale of <span class="tagline-1">${D1.innerText}</span> and
-       <span class="tagline-2">${D2.innerText}</span></h3>
-      <img class="price-tag" id="mini-price-tag" src="./assets/price.png">
-      <img class="overlay" id="mini-overlay" src="./assets/overlay.png">
-    </article>`;
-    // savedCovers.push(miniCover);
-  // console.log("177 <><", savedCovers)
-};
-
 function displaySavedCovers () {
-  console.log("empty func ><>")
+    console.log("empty func ><>")
 }
 
 // function displaySavedCovers () {
@@ -267,7 +268,7 @@ function displaySavedCovers () {
 //       // miniCoverImg.getElementById("cover-image").style = miniCoverContainer.style;
 //       miniCoverImg.src = picture.src;
 //       miniCoverContainer.appendChild(miniCoverImg);
-    
+
 //     var miniCoverTitle = document.createElement("h2");
 //       miniCoverTitle.className = ".cover-title";
 //       miniCoverTitle.innerText = `${mainTitle.innerText}`;
@@ -275,8 +276,8 @@ function displaySavedCovers () {
 
 //     var miniCoverTags = document.createElement("h3");
 //       miniCoverTags.className = ".tagline";
-    
-    
+
+
 //     savedCoversSection.appendChild(miniCoverContainer);
 //   }
 // }
