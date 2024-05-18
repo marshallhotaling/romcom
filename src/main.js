@@ -143,7 +143,7 @@ function makeRandomCover () {
     }
     // console.log("129 ><>")
     return randomCover
-};
+}
 
 function displayRandomCover () {
     var randomCover = makeRandomCover();
@@ -151,7 +151,7 @@ function displayRandomCover () {
     mainTitle.innerText = randomCover.title;
     D1.innerText = randomCover.tagline1;
     D2.innerText = randomCover.tagline2;
-};
+}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 1 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -172,7 +172,16 @@ function showMainPage() {
     homeButton.classList.add('hidden');
     randomCoverButton.classList.remove('hidden');
     saveButton.classList.remove('hidden');
-};
+}
+
+function deleteItem(index) {
+    console.log('index', index)
+    savedCovers.splice(index, 1)
+    savedCoversSection.innerHTML = "";
+    for(let i = 0; i < savedCovers.length; ++i) {
+        savedCoversSection.innerHTML += displayItem(savedCovers[i].coverImg, savedCovers[i].title, savedCovers[i].tagline1, savedCovers[i].tagline2, i)
+    }
+}
 
 function showSavedCovers () {
     savedCoversPage.classList.remove('hidden');
@@ -184,25 +193,22 @@ function showSavedCovers () {
     savedCoversSection.innerHTML = "";
 
     for(let i = 0; i < savedCovers.length; ++i) {
+        savedCoversSection.innerHTML += displayItem(savedCovers[i].coverImg, savedCovers[i].title, savedCovers[i].tagline1, savedCovers[i].tagline2, i)
+    }
+}
 
-        savedCoversSection.innerHTML +=
-            `<article class="mini-cover" id="mini-cover-container">
-      <img class="mini-cover" src="${savedCovers[i].coverImg}" id="mini-cover-img">
-      <h2 class="cover-title" id="mini-cover-title">${savedCovers[i].title}</h2>
-      <h3 class="tagline" id="mini-cover-tagline">A tale of <span class="tagline-1">${savedCovers[i].tagline1}</span> and
-       <span class="tagline-2">${savedCovers[i].tagline2}</span></h3>
+function displayItem(coverImg, title, tag1, tag2, i) {
+    return `<article class="mini-cover" id="mini-cover-container" ondblclick="deleteItem(${i})">
+      <img class="mini-cover" src="${coverImg}" id="mini-cover-img">
+      <h2 class="cover-title" id="mini-cover-title">${title}</h2>
+      <h3 class="tagline" id="mini-cover-tagline">A tale of <span class="tagline-1">${tag1}</span> and
+       <span class="tagline-2">${tag2}</span></h3>
       <img class="price-tag" id="mini-price-tag" src="./assets/price.png">
       <img class="overlay" id="mini-overlay" src="./assets/overlay.png">
-    </article>`;
-
-    }
-
-
-
-
-    // savedCoversSection.innerText = savedCovers;
-    // console.log('5 <<<<<><')
+    </article>`
 }
+
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 2 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
