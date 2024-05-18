@@ -46,9 +46,11 @@ var savedCoversSection = document.querySelector(".saved-covers-section")
 
 // We've provided a few variables below
 
-var savedCovers = [
-  createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
-];
+// var savedCovers = [
+//   createCover("http://3.bp.blogspot.com/-iE4p9grvfpQ/VSfZT0vH2UI/AAAAAAAANq8/wwQZssi-V5g/s1600/Do%2BNot%2BForsake%2BMe%2B-%2BImage.jpg", "Sunsets and Sorrows", "sunsets", "sorrows")
+// ];
+
+var savedCovers = [];
 var currentCover = createCover(picture1, mainTitle, D1, D2);
 
 // Add your event listeners here 👇
@@ -207,8 +209,19 @@ function createUserCover (event) {
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 3 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
 function saveACover () {
-  savedCovers.push(currentCover);
-  console.log("166 ><>", savedCovers)
+    var hasItem = false
+    var coverToKeep = createCover(picture.src, mainTitle.innerHTML, D1.innerHTML, D2.innerHTML);
+
+    for (i = 0; i < savedCovers.length; i++) {
+        if (savedCovers[i].coverImg === coverToKeep.coverImg && savedCovers[i].mainTitle === coverToKeep.mainTitle && savedCovers[i].D1 === coverToKeep.D1 && savedCovers[i].D2 === coverToKeep.D2) {
+            hasItem = true
+        }
+    }
+
+    if (hasItem === false) {
+        savedCovers.push(coverToKeep)
+    }
+    console.log('savedCovers', savedCovers)
 }
 
 // function saveACover () {
