@@ -33,6 +33,7 @@ var makeMyBookButton = document.querySelector(".create-new-book-button")
 var saveThis = document.querySelector(".save-cover-button")
 
 var savedCoversSection = document.querySelector(".saved-covers-section")
+=======
 
 // We've provided a few variables below
 var savedCovers = [
@@ -41,6 +42,21 @@ var savedCovers = [
 var currentCover;
 
 // Add your event listeners here 👇
+randomCover.addEventListener('click', () => {
+  console.log("here")
+  picture.src = covers[Math.floor(Math.random() * covers.length)]
+  mainTitle.innerText = titles[Math.floor(Math.random() * titles.length)]
+  D1.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
+  D2.innerText = descriptors[Math.floor(Math.random() * descriptors.length)]
+  
+
+});
+
+makeACoverButton.addEventListener('click', showFormPage, console.log('1 <><'))
+homeButton.addEventListener('click', showMainPage, console.log('3 <<<><'))
+savedCoversButton.addEventListener('click', showSavedCovers, console.log('6 <<<<<<><'))
+
+
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~ ITERATION 0 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
